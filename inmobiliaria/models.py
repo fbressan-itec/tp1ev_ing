@@ -1,7 +1,7 @@
 from django.db import models
 from django.conf import settings
 
-# Modelo de los inmuebles
+# model de los inmuebles
 class Propiedad(models.Model):
     # tipo de inmueble
     TIPO_CHOICES = [
@@ -38,7 +38,7 @@ class ImagenPropiedad(models.Model):
     def __str__(self):
         return f"Foto de {self.propiedad.titulo}"
 
-# model para los interesados
+# model para los clientes
 class Cliente(models.Model):
     nombre = models.CharField(max_length=100)
     apellido = models.CharField(max_length=100)
@@ -49,7 +49,7 @@ class Cliente(models.Model):
     def __str__(self):
         return f"{self.apellido}, {self.nombre}"
 
-# tipo de contrato venta/alquiler
+# modelo para de contrato venta/alquiler
 class Transaccion(models.Model):
     TIPO_OP_CHOICES = [
         ('VENTA', 'Venta'),

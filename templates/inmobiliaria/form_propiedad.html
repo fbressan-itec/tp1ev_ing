@@ -1,0 +1,36 @@
+<!-- formulario para cargar propiedades --> 
+
+{% extends 'base.html' %}
+
+{% block title %}{{ titulo_pantalla }} - InmoMint{% endblock %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto bg-white p-8 rounded-2xl shadow-xl border border-gray-100">
+    <h1 class="text-3xl font-black text-gray-900 mb-6 text-center">{{ titulo_pantalla }}</h1>
+    
+    <form method="POST" enctype="multipart/form-data" class="space-y-5">
+        {% csrf_token %}
+        
+        {% for field in form %}
+            <div>
+                <label class="block text-sm font-bold text-gray-700 mb-1">
+                    {{ field.label }}
+                </label>
+                {{ field }}
+                {% if field.errors %}
+                    <p class="text-red-500 text-xs mt-1">{{ field.errors.as_text }}</p>
+                {% endif %}
+            </div>
+        {% endfor %}
+        
+        <div class="flex gap-4 pt-4">
+            <a href="{% url 'lista_propiedades' %}" class="w-1/2 text-center bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold py-3 rounded-xl transition-colors">
+                Cancelar
+            </a>
+            <button type="submit" class="w-1/2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-xl transition-colors shadow-md shadow-blue-200">
+                Guardar Propiedad
+            </button>
+        </div>
+    </form>
+</div>
+{% endblock %}

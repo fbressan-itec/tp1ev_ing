@@ -7,6 +7,9 @@
 {% block content %}
 <div class="flex justify-between items-center mb-6">
     <h1 class="text-3xl font-extrabold text-gray-900 tracking-tight">Propiedades Disponibles</h1>
+    <a href="{% url 'crear_propiedad' %}" class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-4 py-2.5 rounded-xl transition-colors shadow-md text-sm">
+        + Agregar Propiedad
+    </a>
 </div>
 
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

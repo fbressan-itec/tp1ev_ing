@@ -1,0 +1,25 @@
+<!-- cartel de confirmar eliminar --> 
+
+{% extends 'base.html' %}
+
+{% block title %}Eliminar Propiedad - InmoMint{% endblock %}
+
+{% block content %}
+<div class="max-w-md mx-auto bg-white p-8 rounded-2xl shadow-xl border border-gray-100 text-center">
+    <div class="w-16 h-16 bg-red-100 text-red-600 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-bold">
+        ⚠️
+    </div>
+    <h1 class="text-2xl font-black text-gray-900 mb-2">¿Estás completamente seguro?</h1>
+    <p class="text-gray-500 mb-6">Vas a eliminar permanentemente la propiedad <strong>"{{ propiedad.titulo }}"</strong>. Esta acción no se puede deshacer.</p>
+    
+    <form method="POST" class="flex gap-4">
+        {% csrf_token %}
+        <a href="{% url 'detalle_propiedad' propiedad.pk %}" class="w-1/2 bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold py-3 rounded-xl transition-colors">
+            Cancelar
+        </a>
+        <button type="submit" class="w-1/2 bg-red-600 hover:bg-red-700 text-white font-bold py-3 rounded-xl transition-colors shadow-md shadow-red-200">
+            Sí, Eliminar
+        </button>
+    </form>
+</div>
+{% endblock %}
