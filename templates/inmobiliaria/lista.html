@@ -1,0 +1,49 @@
+<!-- Lista con cards sencillas para ver propiedades --> 
+
+{% extends 'base.html' %}
+
+{% block title %}Lista de Propiedades - InmoMint{% endblock %}
+
+{% block content %}
+<div class="flex justify-between items-center mb-6">
+    <h1 class="text-3xl font-extrabold text-gray-900 tracking-tight">Propiedades Disponibles</h1>
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    {% for propiedad in propiedades %}
+        <div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 border border-gray-100">
+            <div class="h-48 bg-gray-200 relative">
+                {% if propiedad.imagenes.all %}
+                    <img src="{{ propiedad.imagenes.first.imagen.url }}" alt="{{ propiedad.titulo }}" class="w-full h-full object-cover">
+                {% else %}
+                    <div class="w-full h-full flex items-center justify-center text-gray-400">
+                        <span>📷 Sin foto disponible</span>
+                    </div>
+                {% endif %}
+                <span class="absolute top-3 right-3 bg-blue-600 text-white text-xs font-semibold px-2.5 py-1 rounded-full uppercase">
+                    {{ propiedad.get_tipo_display }}
+                </span>
+            </div>
+
+            <div class="p-5">
+                <div class="text-sm font-medium text-green-600 mb-1 uppercase tracking-wider">
+                    ● {{ propiedad.get_estado_display }}
+                </div>
+                <h2 class="text-xl font-bold text-gray-900 mb-2 truncate">{{ propiedad.titulo }}</h2>
+                <p class="text-gray-500 text-sm mb-4 line-clamp-2">{{ propiedad.descripcion }}</p>
+                
+                <div class="flex items-center justify-between pt-3 border-t border-gray-100">
+                    <span class="text-2xl font-black text-gray-900">USD {{ propiedad.precio }}</span>
+                    <a href="#" class="inline-flex items-center text-sm font-semibold text-blue-600 hover:text-blue-800">
+                        Ver detalle →
+                    </a>
+                </div>
+            </div>
+        </div>
+    {% empty %}
+        <div class="col-span-full bg-blue-50 text-blue-700 p-6 rounded-xl text-center font-medium">
+            No hay propiedades cargadas todavía. ¡Podés cargar una desde el panel de administración!
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}
