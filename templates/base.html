@@ -49,9 +49,43 @@
         {% endblock %}
     </main>
 
-    <footer class="bg-gray-800 text-white text-center py-4 text-sm mt-auto">
-        <p>&copy; 2026 InmoMint - Trabajo Práctico Ingeniería de Software</p>
-    </footer>
+    <footer class="bg-gray-900 text-white mt-20 border-t border-gray-800">
+    <div class="max-w-6xl mx-auto px-4 py-10">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
+            
+            <div>
+                <h3 class="text-xl font-black tracking-wider text-blue-400 mb-3">🏠 {{ global_nombre_web }}</h3>
+                <p class="text-gray-400 text-sm mb-4">Tu aliado confiable en el mercado inmobiliario.</p>
+                <div class="inline-block bg-gray-800 px-4 py-2 rounded-xl border border-gray-700">
+                    <span class="text-xs text-gray-400 block uppercase font-bold tracking-wider">Catálogo Activo</span>
+                    <span class="text-lg font-black text-white">{{ global_total_propiedades }} Propiedades</span>
+                </div>
+            </div>
+
+            <div>
+                <h4 class="text-sm font-bold uppercase tracking-wider text-gray-300 mb-3">Contacto Oficial</h4>
+                <ul class="space-y-2 text-sm text-gray-400">
+                    <li>📍 Casa Central - Río Cuarto</li>
+                    <li>📞 {{ global_telefono }}</li>
+                    <li>✉️ {{ global_email }}</li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="text-sm font-bold uppercase tracking-wider text-gray-300 mb-3">Entrega Evaluativa</h4>
+                <p class="text-sm text-gray-400 leading-relaxed">
+                    Ingeniería de Software - Proyecto Final 2026.<br>
+                    Desarrollado con Django y Tailwind CSS.
+                </p>
+            </div>
+
+        </div>
+
+        <div class="border-t border-gray-800 mt-8 pt-6 text-center text-xs text-gray-500">
+            &copy; 2026 {{ global_nombre_web }}. Todos los derechos reservados.
+        </div>
+    </div>
+</footer>
 
 </body>
 </html>

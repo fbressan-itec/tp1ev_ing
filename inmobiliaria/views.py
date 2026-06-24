@@ -1,8 +1,14 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.decorators import login_required, user_passes_test
 from .models import Propiedad, ImagenPropiedad
 from .forms import PropiedadForm
 
+# verificar if admin o agente 
+def es_agente_o_admin(user):
+    return user.is_authenticated and (user.is_staff or getattr(user, 'es_agente', False))
+
 # logica traer lista de propiedades
+@login_required
 def lista_propiedades(request):
     # traer las propiedades de la bd
     propiedades = Propiedad.objects.all()
@@ -10,21 +16,22 @@ def lista_propiedades(request):
     return render(request, 'inmobiliaria/lista.html', {'propiedades': propiedades})
 
 # logica para "ver mas" detalles de cada propiedad por id
+@login_required
 def detalle_propiedad(request, pk):
     # get o 404 por id/pk
     propiedad = get_object_or_404(Propiedad, pk=pk)
     return render(request, 'inmobiliaria/detalle.html', {'propiedad': propiedad})
 
 # logica formulario cargar propiedades CRUD
+@login_required
+@user_passes_test(es_agente_o_admin, login_url='lista_propiedades')
 def crear_propiedad(request):
     if request.method == 'POST':
         # .FILES para traer imagenes
         form = PropiedadForm(request.POST, request.FILES)
         if form.is_valid():
             propiedad = form.save(commit=False)
-            # si esta logueado le asigna ese user automatico
-            if request.user.is_authenticated:
-                propiedad.agente = request.user
+            propiedad.agente = request.user
             propiedad.save() # subimos a la db
 
             # subimos y vinculamos la imagen
@@ -39,6 +46,8 @@ def crear_propiedad(request):
     return render(request, 'inmobiliaria/form_propiedad.html', {'form': form, 'titulo_pantalla': 'Publicar Nueva Propiedad'})
 
 # logica para editar CRUD
+@login_required
+@user_passes_test(es_agente_o_admin, login_url='lista_propiedades')
 def editar_propiedad(request, pk):
     propiedad = get_object_or_404(Propiedad, pk=pk)
     if request.method == 'POST':
@@ -70,6 +79,8 @@ def editar_propiedad(request, pk):
     return render(request, 'inmobiliaria/form_propiedad.html', {'form': form, 'titulo_pantalla': 'Editar Propiedad'})
 
 # logica eliminar CRUD (borrado directo, ver de modificar model e implementar borrado logico)
+@login_required
+@user_passes_test(es_agente_o_admin, login_url='lista_propiedades')
 def eliminar_propiedad(request, pk):
     propiedad = get_object_or_404(Propiedad, pk=pk)
     if request.method == 'POST':
@@ -78,6 +89,6 @@ def eliminar_propiedad(request, pk):
     
     return render(request, 'inmobiliaria/confirmar_eliminar.html', {'propiedad': propiedad})
 
-# para agregar home
+# para agregar home (publica)
 def home(request):
     return render(request, 'home.html')
