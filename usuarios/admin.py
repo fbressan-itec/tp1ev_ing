@@ -1,3 +1,10 @@
 from django.contrib import admin
+from django.contrib.auth.admin import UserAdmin
+from .models import UsuarioPersonalizado
 
-# Register your models here.
+@admin.register(UsuarioPersonalizado)
+class UsuarioPersonalizadoAdmin(UserAdmin):
+    # al admin de django le agrego tel y el boll esagente
+    fieldsets = UserAdmin.fieldsets + (
+        ('Información Inmobiliaria', {'fields': ('telefono', 'es_agente')}),
+    )

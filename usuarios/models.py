@@ -4,7 +4,7 @@ from django.db import models
 class UsuarioPersonalizado(AbstractUser):
     telefono = models.CharField(max_length=20, blank=True, null=True)
     
-    # Podés agregar un rol para saber si es Cliente o Agente Inmobiliario
+    # rol bool para empleados 
     es_agente = models.BooleanField(default=False)
 
     def __str__(self):
