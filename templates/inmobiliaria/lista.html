@@ -34,7 +34,7 @@
                 
                 <div class="flex items-center justify-between pt-3 border-t border-gray-100">
                     <span class="text-2xl font-black text-gray-900">USD {{ propiedad.precio }}</span>
-                    <a href="#" class="inline-flex items-center text-sm font-semibold text-blue-600 hover:text-blue-800">
+                    <a href="{% url 'detalle_propiedad' propiedad.pk %}" class="inline-flex items-center text-sm font-semibold text-blue-600 hover:text-blue-800">
                         Ver detalle →
                     </a>
                 </div>
