@@ -34,51 +34,51 @@ El panel `/admin/` fue extendido utilizando configuraciones avanzadas de Django 
 
 ## 📸 Capturas de Pantalla
 
-#### 1. Home (y Footer) (Publico)
+### 1. Home (y Footer) (Publico)
 ![HOME1](capturas/Home1.png)
 ![HOME2](capturas/Home2.png)
 
-#### Loguin Form
+### Loguin Form
 ![LOGUIN](capturas/Loguin.png)
 
-#### Register Form
+### Register Form
 ![REGISTER](capturas/Register1.png)
 ![REGISTER1](capturas/Register2.png)
 
-#### Propiedades con Cards personalizadas (RegisterUser/Adm Only)
-# Vista User
+### Propiedades con Cards personalizadas (RegisterUser/Adm Only)
+##### Vista User
 ![POPIEDADESUSR](capturas/Propiedades%20(user).png)
 # Vista Adm
 ![PROPIEDADESADM](capturas/Propiedad_admin.png)
 
-#### Detalle de cada propiedad (RegisterUser/Adm Only)
-# Vista Adm
+### Detalle de cada propiedad (RegisterUser/Adm Only)
+##### Vista Adm
 ![DETALEPROPIEDAD](capturas/Detalle_propiedad_admin.png)
 
-#### Cartera de Clientes (RegisterUser/Adm Only)
-# Vista Adm
+### Cartera de Clientes (RegisterUser/Adm Only)
+##### Vista Adm
 ![CLIENTES](capturas/Clientes_admin.png)
 
-#### Transacciones (RegisterUser/Adm Only)
-# Vista Adm
+### Transacciones (RegisterUser/Adm Only)
+##### Vista Adm
 ![TRANSACCIONES](capturas/Transacciones_Admin.png)
 
-#### Citas (RegisterUser/Adm Only)
-# Vista Adm
+### Citas (RegisterUser/Adm Only)
+##### Vista Adm
 ![CITAS](capturas/Citas_admin.png)
 
-#### Panel de Administrador (dm Only)
+### Panel de Administrador (dm Only)
 ![ADMIN](capturas/Panel_Administracion.png)
 
-#### Formularios y extras
-## Warning eliminar (admin only)
+### Formularios y extras
+#### Warning eliminar (admin only)
 ![WARNING](capturas/Confirmacion_eliminar_gnerico.png)
-## Formulario editar propiedad (admin only)
+#### Formulario editar propiedad (admin only)
 ![FORMEDITPROP](capturas/Form_editpropiedad1.png)
 ![FORMEDITPROP1](capturas/Form_editpropiedad2.png)
-## Formulario Citas (RegisterUser/Adm only)
+#### Formulario Citas (RegisterUser/Adm only)
 ![FORMCITA](capturas/Form_cita.png)
-## Formulario Clientes (RegisterUser/adm only)
+#### Formulario Clientes (RegisterUser/adm only)
 ![FORMCLIENT](capturas/Form_cliente.png)
 ---
 
@@ -90,4 +90,4 @@ El panel `/admin/` fue extendido utilizando configuraciones avanzadas de Django 
    cd TU_REPOSITORIO
 
 ## Alumno
-# Bressan Nadal Franco Nicolas
+### Bressan Nadal Franco Nicolas
