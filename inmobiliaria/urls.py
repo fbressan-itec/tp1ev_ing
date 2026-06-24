@@ -9,4 +9,9 @@ urlpatterns = [
     path('propiedad/nueva/', views.crear_propiedad, name='crear_propiedad'), #formulario cargar propiedades
     path('propiedad/<int:pk>/editar/', views.editar_propiedad, name='editar_propiedad'), #editar
     path('propiedad/<int:pk>/eliminar/', views.eliminar_propiedad, name='eliminar_propiedad'), #eliminar
+    path('clientes/', views.lista_clientes, name='lista_clientes'),
+    path('transacciones/', views.lista_transacciones, name='lista_transacciones'),
+    path('citas/', views.lista_citas, name='lista_citas'),
+    path('clientes/nuevo/', views.crear_cliente, name='crear_cliente'),
+    path('citas/nueva/', views.crear_cita, name='crear_cita'),
 ]

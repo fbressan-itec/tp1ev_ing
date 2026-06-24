@@ -86,9 +86,9 @@
                     </div>
                 {% endif %}
                 
-                <button class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-6 py-3 rounded-xl transition-colors shadow-md shadow-blue-200 cursor-pointer">
-                    Contactar Agente
-                </button>
+                <a href="{% url 'crear_cita' %}?propiedad_id={{ propiedad.pk }}" class="text-center bg-blue-600 hover:bg-blue-700 text-white font-bold px-6 py-3 rounded-xl transition-colors shadow-md shadow-blue-200 cursor-pointer">
+                    📞 Contactar Agente
+                </a>
             </div>
         </div>
     </div>

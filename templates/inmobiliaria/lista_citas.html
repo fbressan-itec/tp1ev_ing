@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block title %}Citas - InmoMint{% endblock %}
+
+{% block content %}
+<div class="max-w-3xl mx-auto py-6">
+    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
+        <div>
+            <h1 class="text-3xl font-black text-gray-900">📅 Agenda de Citas</h1>
+            <p class="text-gray-500 text-sm">Cronograma de visitas programadas a las propiedades.</p>
+        </div>
+        <span class="bg-purple-50 text-purple-600 text-xs font-bold px-3 py-1.5 rounded-full border border-purple-200">
+            {{ citas.count }} Visitas
+        </span>
+        <a href="{% url 'crear_cita' %}" class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-4 py-2 rounded-xl text-sm transition-all shadow-md shadow-blue-100 cursor-pointer">
+            ➕ Agendar Visita
+        </a>
+    </div>
+
+    <div class="space-y-4">
+        {% for cita in citas %}
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-5 flex flex-col sm:flex-row gap-5 items-start sm:items-center hover:shadow-md transition-all">
+            <div class="bg-blue-600 text-white font-black p-3 rounded-xl text-center min-w-[90px] shadow-sm shadow-blue-100">
+                <span class="block text-lg leading-tight">{{ cita.fecha_hora|date:"d" }}</span>
+                <span class="block text-xs uppercase font-bold tracking-wider opacity-90">{{ cita.fecha_hora|date:"M" }}</span>
+                <span class="block text-[11px] font-normal opacity-75 mt-0.5">{{ cita.fecha_hora|date:"H:i" }} hs</span>
+            </div>
+            
+            <div class="flex-grow">
+                <span class="text-xs font-bold text-blue-600 uppercase tracking-wider block mb-0.5">Visita de Vivienda</span>
+                <h3 class="font-black text-gray-900 text-lg leading-snug">{{ cita.cliente }}</h3>
+                <p class="text-sm text-gray-600 mt-1">🏠 <span class="font-semibold text-gray-800">Propiedad:</span> {{ cita.propiedad.titulo }}</p>
+                
+                {% if cita.comentarios %}
+                    <div class="bg-gray-50 text-gray-500 text-xs italic p-2 rounded-lg border border-gray-100 mt-3">
+                        💬 "{{ cita.comentarios }}"
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+        {% empty %}
+        <div class="bg-white rounded-2xl border border-gray-100 p-8 text-center text-gray-400 font-medium shadow-sm">
+            No hay visitas agendadas en el sistema.
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

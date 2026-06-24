@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required, user_passes_test
-from .models import Propiedad, ImagenPropiedad
-from .forms import PropiedadForm
+from .models import Propiedad, ImagenPropiedad, Cliente, Transaccion, Cita
+from .forms import PropiedadForm, ClienteForm, CitaForm
 
 # verificar if admin o agente 
 def es_agente_o_admin(user):
@@ -92,3 +92,52 @@ def eliminar_propiedad(request, pk):
 # para agregar home (publica)
 def home(request):
     return render(request, 'home.html')
+
+# lista de clientes
+@login_required
+def lista_clientes(request):
+    clientes = Cliente.objects.all()
+    return render(request, 'inmobiliaria/lista_clientes.html', {'clientes': clientes})
+
+#Lista de transacciones
+@login_required
+def lista_transacciones(request):
+    transacciones = Transaccion.objects.all()
+    return render(request, 'inmobiliaria/lista_transacciones.html', {'transacciones': transacciones})
+
+#losta de citas
+@login_required
+def lista_citas(request):
+    citas = Cita.objects.all()
+    return render(request, 'inmobiliaria/lista_citas.html', {'citas': citas})
+
+# Agregar datos de posibles clientes
+@login_required
+def crear_cliente(request):
+    if request.method == 'POST':
+        form = ClienteForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('lista_clientes')
+    else:
+        form = ClienteForm()
+    return render(request, 'inmobiliaria/form_generico.html', {'form': form, 'titulo_pantalla': 'Registrar Nuevo Cliente'})
+
+# Crear citas con agentes
+@login_required
+def crear_cita(request):
+    propiedad_id = request.GET.get('propiedad_id') # Capturamos si viene desde una propiedad
+    
+    if request.method == 'POST':
+        form = CitaForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('lista_citas')
+    else:
+        initial_data = {}
+        # traer del id q preciona el boton de citas
+        if propiedad_id:
+            initial_data['propiedad'] = get_object_or_404(Propiedad, pk=propiedad_id)
+        form = CitaForm(initial=initial_data)
+        
+    return render(request, 'inmobiliaria/form_generico.html', {'form': form, 'titulo_pantalla': 'Agendar Nueva Cita / Visita'})

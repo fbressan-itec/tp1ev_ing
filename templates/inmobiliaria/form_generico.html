@@ -1,0 +1,38 @@
+<!-- Formulario generico para citas y clientes -->
+
+{% extends 'base.html' %}
+
+{% block title %}{{ titulo_pantalla }} - InmoMint{% endblock %}
+
+{% block content %}
+<div class="max-w-md mx-auto bg-white p-8 rounded-2xl shadow-xl border border-gray-100 mt-4">
+    <h1 class="text-3xl font-black text-gray-900 mb-2 text-center">{{ titulo_pantalla }}</h1>
+    <p class="text-gray-500 text-sm text-center mb-6">Complete los datos del formulario de gestión.</p>
+
+    <form method="POST" class="space-y-4">
+        {% csrf_token %}
+        
+        {% for field in form %}
+            <div>
+                <label class="block text-sm font-bold text-gray-700 mb-1">
+                    {{ field.label }}
+                </label>
+                {{ field }}
+                {% if field.errors %}
+                    <div class="text-red-500 text-xs mt-1 font-medium">
+                        {{ field.errors }}
+                    </div>
+                {% endif %}
+            </div>
+        {% endfor %}
+        
+        <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-xl transition-colors shadow-md shadow-blue-200 mt-4 cursor-pointer">
+            💾 Guardar Registro
+        </button>
+    </form>
+    
+    <div class="text-center mt-4">
+        <a href="{% url 'home' %}" class="text-sm text-gray-500 hover:underline">Cancelar y Volver</a>
+    </div>
+</div>
+{% endblock %}

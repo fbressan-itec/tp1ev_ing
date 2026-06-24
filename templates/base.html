@@ -17,15 +17,18 @@
                     <a href="{% url 'home' %}" class="text-xl font-bold tracking-wider">🏠 InmoMint</a>
                 </div>
                 
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-2 md:space-x-4">
                     <a href="{% url 'lista_propiedades' %}" class="hover:bg-blue-700 px-3 py-2 rounded-md text-sm font-medium">Propiedades</a>
-                    <a href="#" class="hover:bg-blue-700 px-3 py-2 rounded-md text-sm font-medium">Clientes</a>
                     
                     {% if user.is_authenticated %}
-                        <span class="text-blue-200 text-sm font-medium hidden sm:inline">Hola, {{ user.username }}</span>
+                        <a href="{% url 'lista_clientes' %}" class="hover:bg-blue-700 px-3 py-2 rounded-md text-sm font-medium">Clientes</a>
+                        <a href="{% url 'lista_transacciones' %}" class="hover:bg-blue-700 px-3 py-2 rounded-md text-sm font-medium">Transacciones</a>
+                        <a href="{% url 'lista_citas' %}" class="hover:bg-blue-700 px-3 py-2 rounded-md text-sm font-medium">Citas</a>
+                        
+                        <span class="text-blue-200 text-sm font-medium hidden lg:inline ml-2">Hola, {{ user.username }}</span>
                         
                         {% if user.is_staff or user.es_agente %}
-                            <a href="/admin/" class="hover:bg-blue-700 px-3 py-2 rounded-md text-sm font-medium">Admin</a>
+                            <a href="/admin/" class="hover:bg-blue-700 px-3 py-2 rounded-md text-sm font-medium bg-blue-800">Admin</a>
                         {% endif %}
                         
                         <form method="POST" action="{% url 'logout' %}" class="inline">
@@ -50,42 +53,42 @@
     </main>
 
     <footer class="bg-gray-900 text-white mt-20 border-t border-gray-800">
-    <div class="max-w-6xl mx-auto px-4 py-10">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
-            
-            <div>
-                <h3 class="text-xl font-black tracking-wider text-blue-400 mb-3">🏠 {{ global_nombre_web }}</h3>
-                <p class="text-gray-400 text-sm mb-4">Tu aliado confiable en el mercado inmobiliario.</p>
-                <div class="inline-block bg-gray-800 px-4 py-2 rounded-xl border border-gray-700">
-                    <span class="text-xs text-gray-400 block uppercase font-bold tracking-wider">Catálogo Activo</span>
-                    <span class="text-lg font-black text-white">{{ global_total_propiedades }} Propiedades</span>
+        <div class="max-w-6xl mx-auto px-4 py-10">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
+                
+                <div>
+                    <h3 class="text-xl font-black tracking-wider text-blue-400 mb-3">🏠 {{ global_nombre_web }}</h3>
+                    <p class="text-gray-400 text-sm mb-4">Tu aliado confiable en el mercado inmobiliario.</p>
+                    <div class="inline-block bg-gray-800 px-4 py-2 rounded-xl border border-gray-700">
+                        <span class="text-xs text-gray-400 block uppercase font-bold tracking-wider">Catálogo Activo</span>
+                        <span class="text-lg font-black text-white">{{ global_total_propiedades }} Propiedades</span>
+                    </div>
                 </div>
+
+                <div>
+                    <h4 class="text-sm font-bold uppercase tracking-wider text-gray-300 mb-3">Contacto Oficial</h4>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li>📍 Casa Central - Río Cuarto</li>
+                        <li>📞 {{ global_telefono }}</li>
+                        <li>✉️ {{ global_email }}</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-sm font-bold uppercase tracking-wider text-gray-300 mb-3">Entrega Evaluativa</h4>
+                    <p class="text-sm text-gray-400 leading-relaxed">
+                        Ingeniería de Software - Proyecto Final 2026.<br>
+                        Desarrollado con Django y Tailwind CSS.
+                    </p>
+                </div>
+
             </div>
 
-            <div>
-                <h4 class="text-sm font-bold uppercase tracking-wider text-gray-300 mb-3">Contacto Oficial</h4>
-                <ul class="space-y-2 text-sm text-gray-400">
-                    <li>📍 Casa Central - Río Cuarto</li>
-                    <li>📞 {{ global_telefono }}</li>
-                    <li>✉️ {{ global_email }}</li>
-                </ul>
+            <div class="border-t border-gray-800 mt-8 pt-6 text-center text-xs text-gray-500">
+                &copy; 2026 {{ global_nombre_web }}. Todos los derechos reservados.
             </div>
-
-            <div>
-                <h4 class="text-sm font-bold uppercase tracking-wider text-gray-300 mb-3">Entrega Evaluativa</h4>
-                <p class="text-sm text-gray-400 leading-relaxed">
-                    Ingeniería de Software - Proyecto Final 2026.<br>
-                    Desarrollado con Django y Tailwind CSS.
-                </p>
-            </div>
-
         </div>
-
-        <div class="border-t border-gray-800 mt-8 pt-6 text-center text-xs text-gray-500">
-            &copy; 2026 {{ global_nombre_web }}. Todos los derechos reservados.
-        </div>
-    </div>
-</footer>
+    </footer>
 
 </body>
 </html>
