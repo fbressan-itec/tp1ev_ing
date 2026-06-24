@@ -1,5 +1,6 @@
 from django.db import models
 from django.conf import settings
+from django.utils.formats import date_format # Importación segura para fechas
 
 # model de los inmuebles
 class Propiedad(models.Model):
@@ -73,4 +74,5 @@ class Cita(models.Model):
     comentarios = models.TextField(blank=True, null=True)
 
     def __str__(self):
-        return f"Cita: {self.cliente} ve {self.propiedad.titulo} el {self.fecha_hora.strftime('%d/%m/%Y %H:%M')}"
+        # solucion a crasheo si dejo vacio campo de fecha
+        return f"Cita: {self.cliente} ve {self.propiedad.titulo} ({self.fecha_hora})"
