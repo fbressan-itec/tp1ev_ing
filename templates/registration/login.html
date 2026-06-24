@@ -1,0 +1,43 @@
+<!-- loguin de usuarios -->
+
+{% extends 'base.html' %}
+
+{% block title %}Iniciar Sesión - InmoMint{% endblock %}
+
+{% block content %}
+<div class="max-w-md mx-auto bg-white p-8 rounded-2xl shadow-xl border border-gray-100 mt-8">
+    <h1 class="text-3xl font-black text-gray-900 mb-2 text-center">Bienvenido</h1>
+    <p class="text-gray-500 text-sm text-center mb-6">Ingresá tus credenciales para continuar</p>
+    
+    {% if form.errors %}
+        <div class="bg-red-50 text-red-600 p-4 rounded-xl text-sm mb-4 font-medium border border-red-200">
+            Usuario o contraseña incorrectos. Por favor, intentá de nuevo.
+        </div>
+    {% endif %}
+
+    <form method="POST" class="space-y-4">
+        {% csrf_token %}
+        
+        <div>
+            <label class="block text-sm font-bold text-gray-700 mb-1">Usuario</label>
+            <input type="text" name="username" autofocus required 
+                   class="w-full px-4 py-2 border-2 border-black rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all text-gray-900 bg-white">
+        </div>
+        
+        <div>
+            <label class="block text-sm font-bold text-gray-700 mb-1">Contraseña</label>
+            <input type="password" name="password" required 
+                   class="w-full px-4 py-2 border-2 border-black rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all text-gray-900 bg-white">
+        </div>
+        
+        <button type="submit" 
+                class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-xl transition-colors shadow-md shadow-blue-200 mt-4 cursor-pointer">
+            Ingresar
+        </button>
+    </form>
+
+    <p class="text-sm text-gray-500 text-center mt-4">
+        ¿No tenés cuenta? <a href="{% url 'registro' %}" class="text-blue-600 hover:underline font-semibold">Registrate acá</a>
+    </p>
+</div>
+{% endblock %}

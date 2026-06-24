@@ -104,9 +104,11 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/6.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+# traducido mensajes al español
+LANGUAGE_CODE = 'es-ar'
 
-TIME_ZONE = 'UTC'
+"horarios a argentina"
+TIME_ZONE = 'America/Argentina/Buenos_Aires'
 
 USE_I18N = True
 
@@ -122,3 +124,5 @@ AUTH_USER_MODEL = 'usuarios.UsuarioPersonalizado'
 # ruta de media para img
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+LOGIN_REDIRECT_URL = 'lista_propiedades'
+LOGOUT_REDIRECT_URL = 'lista_propiedades'

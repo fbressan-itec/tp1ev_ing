@@ -73,17 +73,23 @@
                 <span class="text-sm text-gray-500 block font-medium">Precio de lista</span>
                 <span class="text-4xl font-black text-gray-900">USD {{ propiedad.precio }}</span>
             </div>
-            <div class="flex gap-2 mb-4 bg-gray-50 p-2 rounded-xl border border-gray-100">
-                <a href="{% url 'editar_propiedad' propiedad.pk %}" class="w-1/2 text-center bg-amber-500 hover:bg-amber-600 text-white text-sm font-bold py-2 px-4 rounded-lg transition-colors">
-                    ✏️ Editar Datos
-                </a>
-                <a href="{% url 'eliminar_propiedad' propiedad.pk %}" class="w-1/2 text-center bg-red-500 hover:bg-red-600 text-white text-sm font-bold py-2 px-4 rounded-lg transition-colors">
-                    🗑️ Eliminar
-                </a>
+            
+            <div class="flex flex-col sm:flex-row gap-2 items-stretch sm:items-center">
+                {% if user.is_authenticated and user.is_staff or user.es_agente %}
+                    <div class="flex gap-2 bg-gray-50 p-2 rounded-xl border border-gray-100">
+                        <a href="{% url 'editar_propiedad' propiedad.pk %}" class="text-center bg-amber-500 hover:bg-amber-600 text-white text-sm font-bold py-2 px-4 rounded-lg transition-colors">
+                            ✏️ Editar
+                        </a>
+                        <a href="{% url 'eliminar_propiedad' propiedad.pk %}" class="text-center bg-red-500 hover:bg-red-600 text-white text-sm font-bold py-2 px-4 rounded-lg transition-colors">
+                            🗑️ Eliminar
+                        </a>
+                    </div>
+                {% endif %}
+                
+                <button class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-6 py-3 rounded-xl transition-colors shadow-md shadow-blue-200 cursor-pointer">
+                    Contactar Agente
+                </button>
             </div>
-            <button class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-6 py-3 rounded-xl transition-colors shadow-md shadow-blue-200">
-                Contactar Agente
-            </button>
         </div>
     </div>
 </div>

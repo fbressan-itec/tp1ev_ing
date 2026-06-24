@@ -4,7 +4,7 @@ from .models import UsuarioPersonalizado
 
 @admin.register(UsuarioPersonalizado)
 class UsuarioPersonalizadoAdmin(UserAdmin):
-    # al admin de django le agrego tel y el boll esagente
+    # al admin de django le agrego tel y el bollean esagente
     fieldsets = UserAdmin.fieldsets + (
         ('Información Inmobiliaria', {'fields': ('telefono', 'es_agente')}),
     )

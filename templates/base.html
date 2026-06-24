@@ -14,12 +14,31 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
                 <div class="flex items-center">
-                    <a href="#" class="text-xl font-bold tracking-wider">🏠 InmoMint</a>
+                    <a href="{% url 'lista_propiedades' %}" class="text-xl font-bold tracking-wider">🏠 InmoMint</a>
                 </div>
-                <div class="flex space-x-4">
-                    <a href="#" class="hover:bg-blue-700 px-3 py-2 rounded-md text-sm font-medium">Propiedades</a>
+                
+                <div class="flex items-center space-x-4">
+                    <a href="{% url 'lista_propiedades' %}" class="hover:bg-blue-700 px-3 py-2 rounded-md text-sm font-medium">Propiedades</a>
                     <a href="#" class="hover:bg-blue-700 px-3 py-2 rounded-md text-sm font-medium">Clientes</a>
-                    <a href="/admin/" class="bg-blue-800 hover:bg-blue-900 px-3 py-2 rounded-md text-sm font-medium">Admin</a>
+                    
+                    {% if user.is_authenticated %}
+                        <span class="text-blue-200 text-sm font-medium hidden sm:inline">Hola, {{ user.username }}</span>
+                        
+                        {% if user.is_staff or user.es_agente %}
+                            <a href="/admin/" class="hover:bg-blue-700 px-3 py-2 rounded-md text-sm font-medium">Admin</a>
+                        {% endif %}
+                        
+                        <form method="POST" action="{% url 'logout' %}" class="inline">
+                            {% csrf_token %}
+                            <button type="submit" class="bg-red-600 hover:bg-red-700 text-white px-3 py-2 rounded-md text-sm font-medium transition-colors cursor-pointer">
+                                Salir
+                            </button>
+                        </form>
+                    {% else %}
+                        <a href="{% url 'login' %}" class="bg-blue-800 hover:bg-blue-900 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors">
+                            Iniciar Sesión
+                        </a>
+                    {% endif %}
                 </div>
             </div>
         </div>
