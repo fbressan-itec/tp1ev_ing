@@ -9,9 +9,16 @@ urlpatterns = [
     path('propiedad/nueva/', views.crear_propiedad, name='crear_propiedad'), #formulario cargar propiedades
     path('propiedad/<int:pk>/editar/', views.editar_propiedad, name='editar_propiedad'), #editar
     path('propiedad/<int:pk>/eliminar/', views.eliminar_propiedad, name='eliminar_propiedad'), #eliminar
-    path('clientes/', views.lista_clientes, name='lista_clientes'),
+
     path('transacciones/', views.lista_transacciones, name='lista_transacciones'),
-    path('citas/', views.lista_citas, name='lista_citas'),
+    
     path('clientes/nuevo/', views.crear_cliente, name='crear_cliente'),
+    path('clientes/', views.lista_clientes, name='lista_clientes'),
+    path('clientes/<int:pk>/editar/', views.editar_cliente, name='editar_cliente'),
+    path('clientes/<int:pk>/eliminar/', views.eliminar_cliente, name='eliminar_cliente'),
+
+    path('citas/', views.lista_citas, name='lista_citas'),
     path('citas/nueva/', views.crear_cita, name='crear_cita'),
+    path('citas/<int:pk>/editar/', views.editar_cita, name='editar_cita'),
+    path('citas/<int:pk>/eliminar/', views.eliminar_cita, name='eliminar_cita'),
 ]

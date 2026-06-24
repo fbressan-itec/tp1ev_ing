@@ -9,12 +9,14 @@
             <h1 class="text-3xl font-black text-gray-900">📅 Agenda de Citas</h1>
             <p class="text-gray-500 text-sm">Cronograma de visitas programadas a las propiedades.</p>
         </div>
-        <span class="bg-purple-50 text-purple-600 text-xs font-bold px-3 py-1.5 rounded-full border border-purple-200">
-            {{ citas.count }} Visitas
-        </span>
-        <a href="{% url 'crear_cita' %}" class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-4 py-2 rounded-xl text-sm transition-all shadow-md shadow-blue-100 cursor-pointer">
-            ➕ Agendar Visita
-        </a>
+        <div class="flex items-center gap-3">
+            <span class="bg-purple-50 text-purple-600 text-xs font-bold px-3 py-1.5 rounded-full border border-purple-200">
+                {{ citas.count }} Visitas
+            </span>
+            <a href="{% url 'crear_cita' %}" class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-4 py-2 rounded-xl text-sm transition-all shadow-md shadow-blue-100 cursor-pointer">
+                ➕ Agendar Visita
+            </a>
+        </div>
     </div>
 
     <div class="space-y-4">
@@ -26,16 +28,21 @@
                 <span class="block text-[11px] font-normal opacity-75 mt-0.5">{{ cita.fecha_hora|date:"H:i" }} hs</span>
             </div>
             
-            <div class="flex-grow">
+            <div class="flex-grow w-full">
                 <span class="text-xs font-bold text-blue-600 uppercase tracking-wider block mb-0.5">Visita de Vivienda</span>
                 <h3 class="font-black text-gray-900 text-lg leading-snug">{{ cita.cliente }}</h3>
                 <p class="text-sm text-gray-600 mt-1">🏠 <span class="font-semibold text-gray-800">Propiedad:</span> {{ cita.propiedad.titulo }}</p>
                 
                 {% if cita.comentarios %}
-                    <div class="bg-gray-50 text-gray-500 text-xs italic p-2 rounded-lg border border-gray-100 mt-3">
+                    <div class="bg-gray-50 text-gray-500 text-xs italic p-2.5 rounded-lg border border-gray-100 mt-3">
                         💬 "{{ cita.comentarios }}"
                     </div>
                 {% endif %}
+
+                <div class="mt-4 pt-3 border-t border-gray-100 flex justify-end space-x-4">
+                    <a href="{% url 'editar_cita' cita.pk %}" class="text-blue-600 hover:underline text-xs font-semibold">✏️ Modificar Cita</a>
+                    <a href="{% url 'eliminar_cita' cita.pk %}" class="text-red-600 hover:underline text-xs font-semibold">🗑️ Cancelar Cita</a>
+                </div>
             </div>
         </div>
         {% empty %}

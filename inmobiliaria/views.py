@@ -141,3 +141,59 @@ def crear_cita(request):
         form = CitaForm(initial=initial_data)
         
     return render(request, 'inmobiliaria/form_generico.html', {'form': form, 'titulo_pantalla': 'Agendar Nueva Cita / Visita'})
+
+#editar cliente solo logueados
+@login_required
+def editar_cliente(request, pk):
+    cliente = get_object_or_404(Cliente, pk=pk)
+    if request.method == 'POST':
+        form = ClienteForm(request.POST, instance=cliente)
+        if form.is_valid():
+            form.save()
+            return redirect('lista_clientes')
+    else:
+        form = ClienteForm(instance=cliente)
+    return render(request, 'inmobiliaria/form_generico.html', {'form': form, 'titulo_pantalla': 'Editar Datos del Cliente'})
+
+#eliminar clientes (NO LOGICO) solo usuario
+@login_required
+def eliminar_cliente(request, pk):
+    cliente = get_object_or_404(Cliente, pk=pk)
+    if request.method == 'POST':
+        cliente.delete()
+        return redirect('lista_clientes')
+    return render(request, 'inmobiliaria/confirmar_eliminar_generico.html', {
+        'objeto': cliente, 
+        'nombre_objeto': f"al cliente {cliente.apellido}, {cliente.nombre}",
+        'url_cancelar': 'lista_clientes'
+    })
+
+#editar cita (por ahora usuario)
+@login_required
+#@user_passes_test(es_agente_o_admin, login_url='lista_propiedades') #desmarcar si lo dejo solo admin
+def editar_cita(request, pk):
+    cita = get_object_or_404(Cita, pk=pk)
+    if request.method == 'POST':
+        form = CitaForm(request.POST, instance=cita)
+        if form.is_valid():
+            form.save()
+            return redirect('lista_citas')
+    else:
+        form = CitaForm(instance=cita)
+    return render(request, 'inmobiliaria/form_generico.html', {'form': form, 'titulo_pantalla': 'Modificar Cita / Visita'})
+
+#eliminar (NO LOGICO) cita (por ahora solo usuario)
+@login_required
+#@user_passes_test(es_agente_o_admin, login_url='lista_propiedades') #desmarcar si pongo solo admin
+def eliminar_cita(request, pk):
+    cita = get_object_or_404(Cita, pk=pk)
+    if request.method == 'POST':
+        cita.delete()
+        return redirect('lista_citas')    
+    #para que no se rompa
+    fecha_formateada = cita.fecha_hora.strftime('%d/%m/%Y %H:%M')    
+    return render(request, 'inmobiliaria/confirmar_eliminar_generico.html', {
+        'objeto': cita, 
+        'nombre_objeto': f"la cita programada para el {fecha_formateada} hs",
+        'url_cancelar': 'lista_citas'
+    })
