@@ -1,0 +1,48 @@
+<!-- Nueva HOME -->
+
+{% extends 'base.html' %}
+
+{% block title %}Inicio - InmoMint{% endblock %}
+
+{% block content %}
+<div class="flex flex-col items-center justify-center text-center py-12 md:py-20 max-w-3xl mx-auto">
+    <span class="bg-blue-50 text-blue-600 text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-widest mb-6 border border-blue-200">
+        🚀 Tu próximo hogar está acá
+    </span>
+
+    <h1 class="text-4xl md:text-6xl font-black text-gray-900 tracking-tight leading-none mb-6">
+        Encontrá el lugar donde querés <span class="text-blue-600">vivir</span>.
+    </h1>
+
+    <p class="text-lg text-gray-600 leading-relaxed mb-10 max-w-2xl">
+        Gestioná, publicá y encontrá propiedades de forma rápida y profesional. La plataforma ideal para agentes inmobiliarios y clientes exigentes.
+    </p>
+
+    <div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+        <a href="{% url 'lista_propiedades' %}" class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-8 py-4 rounded-xl transition-all shadow-lg shadow-blue-200 text-lg cursor-pointer">
+            🔍 Ver Propiedades
+        </a>
+        
+        {% if not user.is_authenticated %}
+            <a href="{% url 'registro' %}" class="bg-white hover:bg-gray-50 text-gray-900 font-bold px-8 py-4 rounded-xl transition-all border-2 border-black text-lg cursor-pointer">
+                Crear Cuenta Agente
+            </a>
+        {% endif %}
+    </div>
+
+    <div class="grid grid-cols-3 gap-8 mt-16 pt-8 border-t border-gray-200 w-full">
+        <div>
+            <span class="block text-3xl font-black text-gray-900">+500</span>
+            <span class="text-xs text-gray-500 uppercase font-bold tracking-wider">Propiedades</span>
+        </div>
+        <div>
+            <span class="block text-3xl font-black text-gray-900">100%</span>
+            <span class="text-xs text-gray-500 uppercase font-bold tracking-wider">Seguro</span>
+        </div>
+        <div>
+            <span class="block text-3xl font-black text-gray-900">24/7</span>
+            <span class="text-xs text-gray-500 uppercase font-bold tracking-wider">Soporte Agentes</span>
+        </div>
+    </div>
+</div>
+{% endblock %}

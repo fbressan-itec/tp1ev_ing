@@ -18,12 +18,15 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from inmobiliaria import views as inmobiliaria_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', inmobiliaria_views.home, name='home'), #Home
+    path('propiedades/', include('inmobiliaria.urls')),
+    
     path('accounts/', include('django.contrib.auth.urls')), # user de django para login y logout
     path('accounts/', include('usuarios.urls')), # ruta registro
-    path('', include('inmobiliaria.urls')),
 ]
 
 if settings.DEBUG:

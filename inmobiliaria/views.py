@@ -77,3 +77,7 @@ def eliminar_propiedad(request, pk):
         return redirect('lista_propiedades')
     
     return render(request, 'inmobiliaria/confirmar_eliminar.html', {'propiedad': propiedad})
+
+# para agregar home
+def home(request):
+    return render(request, 'home.html')
