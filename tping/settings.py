@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'usuarios', # app de mis usuarios
+    'inmobiliaria',  # app de las propiedades
 ]
 
 MIDDLEWARE = [
