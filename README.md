@@ -48,7 +48,7 @@ El panel `/admin/` fue extendido utilizando configuraciones avanzadas de Django 
 ### Propiedades con Cards personalizadas (RegisterUser/Adm Only)
 ##### Vista User
 ![POPIEDADESUSR](capturas/Propiedades%20(user).png)
-# Vista Adm
+##### Vista Adm
 ![PROPIEDADESADM](capturas/Propiedad_admin.png)
 
 ### Detalle de cada propiedad (RegisterUser/Adm Only)
@@ -67,7 +67,7 @@ El panel `/admin/` fue extendido utilizando configuraciones avanzadas de Django 
 ##### Vista Adm
 ![CITAS](capturas/Citas_admin.png)
 
-### Panel de Administrador (dm Only)
+### Panel de Administrador (Adm Only)
 ![ADMIN](capturas/Panel_Administracion.png)
 
 ### Formularios y extras
@@ -88,6 +88,24 @@ El panel `/admin/` fue extendido utilizando configuraciones avanzadas de Django 
    ```bash
    git clone [https://github.com/TU_USUARIO/TU_REPOSITORIO.git](https://github.com/TU_USUARIO/TU_REPOSITORIO.git)
    cd TU_REPOSITORIO
+
+2. Activar entorno virtual:
+   ```bash
+   python3 -m venv env source venv/bin/activate
+
+3. Instalar Dependencias y Django Pillow para fotos:
+   ```bash
+   npm install
+   pip instal django Pilow
+
+4. Realizar Migraciones
+   ```bash
+   python manage.py makemigrations
+   python manage.py migrate
+
+5. Levantar la pagina:
+   ```bash
+   python manage.py runserver
 
 ## Alumno
 ### Bressan Nadal Franco Nicolas
