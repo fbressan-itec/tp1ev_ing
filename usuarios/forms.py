@@ -2,21 +2,19 @@
 
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth import get_user_model
-
-# para que no se rompa
-User = get_user_model()
+from .models import UsuarioPersonalizado
 
 class RegistroForm(UserCreationForm):
-    #agregamos telefono de user personalizado (es_agente no esta y por def false, solo admin en panel puede config esto))
-    email = forms.EmailField(required=True, label="Correo Electrónico")
-    first_name = forms.CharField(required=True, label="Nombre")
-    last_name = forms.CharField(required=True, label="Apellido")
-    telefono = forms.CharField(required=False, label="Teléfono de Contacto")
-
-    class Meta:
-        model = User
-        fields = ['username', 'first_name', 'last_name', 'email', 'telefono']
+    # Definimos los campos para agregarles la clase CSS y hacer obligatorios los que hagan falta
+    email = forms.EmailField(required=True, label="Correo Electrónico", widget=forms.TextInput(attrs={'class': 'form-control'}))
+    first_name = forms.CharField(required=True, label="Nombre", widget=forms.TextInput(attrs={'class': 'form-control'}))
+    last_name = forms.CharField(required=True, label="Apellido", widget=forms.TextInput(attrs={'class': 'form-control'}))
+    telefono = forms.CharField(required=False, label="Teléfono de Contacto", widget=forms.TextInput(attrs={'class': 'form-control'}))
+    
+    class Meta(UserCreationForm.Meta):
+        model = UsuarioPersonalizado
+        # Heredamos los campos base (username y contraseñas) y les acoplamos los tuyos
+        fields = UserCreationForm.Meta.fields + ('first_name', 'last_name', 'email', 'telefono')
 
     # estilos
     def __init__(self, *args, **kwargs):
