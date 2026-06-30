@@ -109,7 +109,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # traducido mensajes al español
 LANGUAGE_CODE = 'es-ar'
 
-"horarios a argentina"
+#"horarios a argentina"
 TIME_ZONE = 'America/Argentina/Buenos_Aires'
 
 USE_I18N = True
