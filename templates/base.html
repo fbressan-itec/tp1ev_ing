@@ -21,14 +21,22 @@
                     <a href="{% url 'lista_propiedades' %}" class="hover:bg-blue-700 px-3 py-2 rounded-md text-sm font-medium">Propiedades</a>
                     
                     {% if user.is_authenticated %}
-                        <a href="{% url 'lista_clientes' %}" class="hover:bg-blue-700 px-3 py-2 rounded-md text-sm font-medium">Clientes</a>
-                        <a href="{% url 'lista_transacciones' %}" class="hover:bg-blue-700 px-3 py-2 rounded-md text-sm font-medium">Transacciones</a>
-                        <a href="{% url 'lista_citas' %}" class="hover:bg-blue-700 px-3 py-2 rounded-md text-sm font-medium">Citas</a>
+                        {% if perms.inmobiliaria.view_cliente %}
+                            <a href="{% url 'lista_clientes' %}" class="hover:bg-blue-700 px-3 py-2 rounded-md text-sm font-medium">Clientes</a>
+                        {% endif %}
+                        
+                        {% if perms.inmobiliaria.view_transaccion %}
+                            <a href="{% url 'lista_transacciones' %}" class="hover:bg-blue-700 px-3 py-2 rounded-md text-sm font-medium">Transacciones</a>
+                        {% endif %}
+                        
+                        {% if perms.inmobiliaria.view_cita %}
+                            <a href="{% url 'lista_citas' %}" class="hover:bg-blue-700 px-3 py-2 rounded-md text-sm font-medium">Citas</a>
+                        {% endif %}
                         
                         <span class="text-blue-200 text-sm font-medium hidden lg:inline ml-2">Hola, {{ user.username }}</span>
                         
                         {% if user.is_staff or user.es_agente %}
-                            <a href="/admin/" class="hover:bg-blue-700 px-3 py-2 rounded-md text-sm font-medium bg-blue-800">Admin</a>
+                            <a href="{% url 'admin:index' %}" class="hover:bg-blue-700 px-3 py-2 rounded-md text-sm font-medium bg-blue-800">Admin</a>
                         {% endif %}
                         
                         <form method="POST" action="{% url 'logout' %}" class="inline">

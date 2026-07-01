@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -108,7 +109,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # traducido mensajes al español
 LANGUAGE_CODE = 'es-ar'
 
-"horarios a argentina"
+#"horarios a argentina"
 TIME_ZONE = 'America/Argentina/Buenos_Aires'
 
 USE_I18N = True

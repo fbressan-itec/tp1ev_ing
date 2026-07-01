@@ -13,9 +13,13 @@
             <span class="bg-purple-50 text-purple-600 text-xs font-bold px-3 py-1.5 rounded-full border border-purple-200">
                 {{ citas.count }} Visitas
             </span>
-            <a href="{% url 'crear_cita' %}" class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-4 py-2 rounded-xl text-sm transition-all shadow-md shadow-blue-100 cursor-pointer">
-                ➕ Agendar Visita
-            </a>
+
+            {% if perms.inmobiliaria.add_cita %}
+                <a href="{% url 'crear_cita' %}" class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-4 py-2 rounded-xl text-sm transition-all shadow-md shadow-blue-100 cursor-pointer">
+                    ➕ Agendar Visita
+                </a>
+            {% endif %}
+
         </div>
     </div>
 
@@ -39,10 +43,17 @@
                     </div>
                 {% endif %}
 
-                <div class="mt-4 pt-3 border-t border-gray-100 flex justify-end space-x-4">
-                    <a href="{% url 'editar_cita' cita.pk %}" class="text-blue-600 hover:underline text-xs font-semibold">✏️ Modificar Cita</a>
-                    <a href="{% url 'eliminar_cita' cita.pk %}" class="text-red-600 hover:underline text-xs font-semibold">🗑️ Cancelar Cita</a>
-                </div>
+                {% if perms.inmobiliaria.change_cita or perms.inmobiliaria.delete_cita %}
+                    <div class="mt-4 pt-3 border-t border-gray-100 flex justify-end space-x-4">
+                        {% if perms.inmobiliaria.change_cita %}
+                            <a href="{% url 'editar_cita' cita.pk %}" class="text-blue-600 hover:underline text-xs font-semibold">✏️ Modificar Cita</a>
+                        {% endif %}
+                        
+                        {% if perms.inmobiliaria.delete_cita %}
+                            <a href="{% url 'eliminar_cita' cita.pk %}" class="text-red-600 hover:underline text-xs font-semibold">🗑️ Cancelar Cita</a>
+                        {% endif %}
+                    </div>
+                {% endif %}
             </div>
         </div>
         {% empty %}

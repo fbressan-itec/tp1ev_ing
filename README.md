@@ -91,7 +91,8 @@ El panel `/admin/` fue extendido utilizando configuraciones avanzadas de Django 
 
 2. Activar entorno virtual:
    ```bash
-   python3 -m venv env source venv/bin/activate
+   python3 -m venv env 
+   source venv/bin/activate
 
 3. Instalar Dependencias y Django Pillow para fotos:
    ```bash

@@ -5,7 +5,7 @@
 {% block title %}Clientes - InmoMint{% endblock %}
 
 {% block content %}
-<div class="max-w-5xl mx-auto py-6"></div>
+<div class="max-w-5xl mx-auto py-6">
     <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
         <div>
             <h1 class="text-3xl font-black text-gray-900">👥 Cartera de Clientes</h1>
@@ -14,9 +14,13 @@
         <span class="bg-blue-50 text-blue-600 text-xs font-bold px-3 py-1.5 rounded-full border border-blue-200">
                 {{ clientes.count }} Clientes totales
         </span>
-        <a href="{% url 'crear_cliente' %}" class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-4 py-2 rounded-xl text-sm transition-all shadow-md shadow-blue-100 cursor-pointer">
-            ➕ Agregar Cliente
-        </a>
+
+        {% if perms.inmobiliaria.add_cliente %}
+            <a href="{% url 'crear_cliente' %}" class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-4 py-2 rounded-xl text-sm transition-all shadow-md shadow-blue-100 cursor-pointer">
+                ➕ Agregar Cliente
+            </a>
+        {% endif %}
+
     </div>
 
     <div class="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100">
@@ -39,13 +43,20 @@
                         <td class="p-4 text-gray-700">{{ cliente.telefono }}</td>
                         <td class="p-4 text-blue-600 font-medium">{{ cliente.email }}</td>
                         <td class="p-4 text-right space-x-2">
-                            <a href="{% url 'editar_cliente' cliente.pk %}" class="text-blue-600 hover:underline font-medium text-xs">✏️ Editar</a>
-                            <a href="{% url 'eliminar_cliente' cliente.pk %}" class="text-red-600 hover:underline font-medium text-xs ml-2">🗑️ Borrar</a>
+
+                            {% if perms.inmobiliaria.change_cliente %}
+                                <a href="{% url 'editar_cliente' cliente.pk %}" class="text-blue-600 hover:underline font-medium text-xs">✏️ Editar</a>
+                            {% endif %}
+                            
+                            {% if perms.inmobiliaria.delete_cliente %}
+                                <a href="{% url 'eliminar_cliente' cliente.pk %}" class="text-red-600 hover:underline font-medium text-xs ml-2">🗑️ Borrar</a>
+                            {% endif %}
+
                         </td>
                     </tr>
                     {% empty %}
                     <tr>
-                        <td colspan="4" class="p-8 text-center text-gray-400 font-medium">No hay clientes cargados en el sistema.</td>
+                        <td colspan="5" class="p-8 text-center text-gray-400 font-medium">No hay clientes cargados en el sistema.</td>
                     </tr>
                     {% endfor %}
                 </tbody>

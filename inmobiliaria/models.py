@@ -26,6 +26,8 @@ class Propiedad(models.Model):
     estado = models.CharField(max_length=4, choices=ESTADO_CHOICES, default='DISP')
     agente = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True, related_name="propiedades")
 
+    class Meta:
+        verbose_name_plural = "Propiedades"
     def __str__(self):
         return f"{self.titulo} - {self.get_tipo_display()} (${self.precio})"
 
@@ -62,6 +64,9 @@ class Transaccion(models.Model):
     tipo_operacion = models.CharField(max_length=10, choices=TIPO_OP_CHOICES)
     fecha = models.DateField(auto_now_add=True)
     monto_final = models.DecimalField(max_digits=12, decimal_places=2)
+
+    class Meta:
+        verbose_name_plural = "Transacciones"
 
     def __str__(self):
         return f"{self.tipo_operacion} de {self.propiedad.titulo} - {self.fecha}"

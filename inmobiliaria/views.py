@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.contrib.auth.decorators import login_required, user_passes_test
+from django.contrib.auth.decorators import login_required, user_passes_test, permission_required
 from .models import Propiedad, ImagenPropiedad, Cliente, Transaccion, Cita
 from .forms import PropiedadForm, ClienteForm, CitaForm
 
@@ -17,6 +17,7 @@ def lista_propiedades(request):
 
 # logica para "ver mas" detalles de cada propiedad por id
 @login_required
+@permission_required('inmobiliaria.view_propiedad', login_url='lista_propiedades')
 def detalle_propiedad(request, pk):
     # get o 404 por id/pk
     propiedad = get_object_or_404(Propiedad, pk=pk)
@@ -24,7 +25,8 @@ def detalle_propiedad(request, pk):
 
 # logica formulario cargar propiedades CRUD
 @login_required
-@user_passes_test(es_agente_o_admin, login_url='lista_propiedades')
+#@user_passes_test(es_agente_o_admin, login_url='lista_propiedades')
+@permission_required('inmobiliaria.add_propiedad', login_url='lista_propiedades')
 def crear_propiedad(request):
     if request.method == 'POST':
         # .FILES para traer imagenes
@@ -47,7 +49,8 @@ def crear_propiedad(request):
 
 # logica para editar CRUD
 @login_required
-@user_passes_test(es_agente_o_admin, login_url='lista_propiedades')
+#@user_passes_test(es_agente_o_admin, login_url='lista_propiedades')
+@permission_required('inmobiliaria.change_propiedad', login_url='lista_propiedades')
 def editar_propiedad(request, pk):
     propiedad = get_object_or_404(Propiedad, pk=pk)
     if request.method == 'POST':
@@ -80,7 +83,8 @@ def editar_propiedad(request, pk):
 
 # logica eliminar CRUD (borrado directo, ver de modificar model e implementar borrado logico)
 @login_required
-@user_passes_test(es_agente_o_admin, login_url='lista_propiedades')
+#@user_passes_test(es_agente_o_admin, login_url='lista_propiedades')
+@permission_required('inmobiliaria.delete_propiedad', login_url='lista_propiedades')
 def eliminar_propiedad(request, pk):
     propiedad = get_object_or_404(Propiedad, pk=pk)
     if request.method == 'POST':
@@ -95,24 +99,28 @@ def home(request):
 
 # lista de clientes
 @login_required
+@permission_required('inmobiliaria.view_cliente', login_url='lista_propiedades')
 def lista_clientes(request):
     clientes = Cliente.objects.all()
     return render(request, 'inmobiliaria/lista_clientes.html', {'clientes': clientes})
 
 #Lista de transacciones
 @login_required
+@permission_required('inmobiliaria.view_transaccion', login_url='lista_propiedades')
 def lista_transacciones(request):
     transacciones = Transaccion.objects.all()
     return render(request, 'inmobiliaria/lista_transacciones.html', {'transacciones': transacciones})
 
 #losta de citas
 @login_required
+@permission_required('inmobiliaria.view_cita', login_url='lista_propiedades')
 def lista_citas(request):
     citas = Cita.objects.all()
     return render(request, 'inmobiliaria/lista_citas.html', {'citas': citas})
 
 # Agregar datos de posibles clientes
 @login_required
+@permission_required('inmobiliaria.add_cliente', login_url='lista_propiedades')
 def crear_cliente(request):
     if request.method == 'POST':
         form = ClienteForm(request.POST)
@@ -125,6 +133,7 @@ def crear_cliente(request):
 
 # Crear citas con agentes
 @login_required
+@permission_required('inmobiliaria.add_cita', login_url='lista_propiedades')
 def crear_cita(request):
     propiedad_id = request.GET.get('propiedad_id') # Capturamos si viene desde una propiedad
     
@@ -144,6 +153,7 @@ def crear_cita(request):
 
 #editar cliente solo logueados
 @login_required
+@permission_required('inmobiliaria.change_cliente', login_url='lista_propiedades')
 def editar_cliente(request, pk):
     cliente = get_object_or_404(Cliente, pk=pk)
     if request.method == 'POST':
@@ -157,6 +167,7 @@ def editar_cliente(request, pk):
 
 #eliminar clientes (NO LOGICO) solo usuario
 @login_required
+@permission_required('inmobiliaria.delete_cliente', login_url='lista_propiedades')
 def eliminar_cliente(request, pk):
     cliente = get_object_or_404(Cliente, pk=pk)
     if request.method == 'POST':
@@ -170,6 +181,7 @@ def eliminar_cliente(request, pk):
 
 #editar cita (por ahora usuario)
 @login_required
+@permission_required('inmobiliaria.change_cita', login_url='lista_propiedades')
 #@user_passes_test(es_agente_o_admin, login_url='lista_propiedades') #desmarcar si lo dejo solo admin
 def editar_cita(request, pk):
     cita = get_object_or_404(Cita, pk=pk)
@@ -185,6 +197,7 @@ def editar_cita(request, pk):
 #eliminar (NO LOGICO) cita (por ahora solo usuario)
 @login_required
 #@user_passes_test(es_agente_o_admin, login_url='lista_propiedades') #desmarcar si pongo solo admin
+@permission_required('inmobiliaria.delete_cita', login_url='lista_propiedades')
 def eliminar_cita(request, pk):
     cita = get_object_or_404(Cita, pk=pk)
     if request.method == 'POST':
